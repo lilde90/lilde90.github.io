@@ -221,23 +221,38 @@
 <p>说起多态的英文polymorphism, 词根morph表示形态/形状, 前缀poly表示多种/多样，两个合起来<br>组成了差不多是常用的编程词汇里面最难读的一个单词。从本质上来说，多态是一种延迟到运行期<br>的泛型，是一种能够令单一的泛型标记关联不同的特定行为的方式。在我们平常理解的OO多态中，<br>这种单一的泛型标记是基类（base class），而放到C++模版中，这种单一的泛型标记就变成了<br>模版参数。对于面向对象这种编程范式而言，多态是基础，没有了多态，面向对象编程鼓吹的<br>封装、抽象、模式和优雅就不复存在，而在C++中，多态是通过继承和虚函数来实现，而这两种<br>机制基本上是在运行期进行处理，这种多态也就可以称之为动多态。而C++模版中的单一泛型标记<br>关联不同的特定行为的阶段是在编译期进行处理，这种多态可以称之为静多态。                          </p>
 <p>多态的基本设计思想，就是对于几个相关或者相似的类型，确定它们的功能交集，然后在基类中，<br>把这些功能交集声明为虚函数接口。接着在特定类型的定义中继承基类，实现虚函数接口。生成<br>具体对象之后，客户端代码通过指向基类的引用或者指针操作这些对象，实现对虚函数的调度，<br>利用引用或者指针调用虚成员函数，来实际调用具体成员函数。                            </p>
 <p>以上这些是每一本面向对象教科书都会告诉你的事情，让我们再俗一点，举一个例子来说明。<br>定义一个几何形状基类，它声明了一些适用于对所有几何对象的操作和属性，比如说draw<br>接口，接着在派生类中分别实现这些接口。</p>
-<pre><code><span class="keyword">class</span> <span class="title">shape</span> {
+<pre><code><span class="keyword">class</span> <span class="title">Shape</span> {
     <span class="keyword">public</span>:
         <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">draw</span>(<span class="params"></span>) <span class="keyword">const</span> </span>= <span class="number">0</span>;
         ....
 };
 
-<span class="keyword">class</span> <span class="title">circle</span> : <span class="title">public</span> <span class="title">shape</span> {
+<span class="keyword">class</span> <span class="title">Circle</span> : <span class="title">public</span> <span class="title">Shape</span> {
     <span class="keyword">public</span>:
         <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">draw</span>(<span class="params"></span>) <span class="keyword">const</span></span>;
         ....
 };
 
-<span class="keyword">class</span> <span class="title">Line</span> : <span class="title">public</span> <span class="title">shape</span> {
+<span class="keyword">class</span> <span class="title">Line</span> : <span class="title">public</span> <span class="title">Shape</span> {
     <span class="keyword">public</span>:
         <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">draw</span>(<span class="params"></span>) <span class="keyword">const</span></span>;
         ....
 };
+</code></pre><p>然后，在客户端代码中，利用指向公共基类Shape的引用或指针来调用虚成员函数draw。在编译期<br>并不能确定会使用哪个具体类的draw函数，这种声明和类型的绑定被延迟到运行期才能做决策，<br>在运行期，根据指针指向具体的对象类型来完成相应的函数调用。</p>
+<pre><code><span class="function"><span class="keyword">void</span> <span class="title">draw_shape</span><span class="params">(Shape <span class="keyword">const</span>&amp; obj)</span> </span>{
+    obj.draw();
+}
+
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>{
+    Line l;
+    Circle c;
+    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Shape *&gt; shp_vec;
+    shp_vec.push_back(&amp;l);
+    shp_vec.push_back(&amp;c);
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; shp_vec.size(); i++) {
+        sha_vec[i].draw();
+    }
+}
 </code></pre></span>
         
       
