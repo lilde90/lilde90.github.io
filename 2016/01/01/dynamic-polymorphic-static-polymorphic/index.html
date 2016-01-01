@@ -43,7 +43,7 @@
 <meta property="og:url" content="http://pan-li.me/2016/01/01/dynamic-polymorphic-static-polymorphic/index.html">
 <meta property="og:site_name" content="lilde90's Notes">
 <meta property="og:description" content="前几周和囧洋闲扯，囧洋问我如何能够保证程序的安全性，我说尽可能把运行时错误（runtimeerror）转变成编译时错误（compile error），囧洋一副觉得高深不可测的样子，就和很多时候我跟很多人吹程序的逼然后他们露出的神情一样。正好最近在看C++ templates，里面有一小节谈到了动多态(dynamic polymorphism)和静多态（static polymorphism），正好">
-<meta property="og:updated_time" content="2016-01-01T09:24:36.000Z">
+<meta property="og:updated_time" content="2016-01-01T09:32:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从动多态和静多态说起">
 <meta name="twitter:description" content="前几周和囧洋闲扯，囧洋问我如何能够保证程序的安全性，我说尽可能把运行时错误（runtimeerror）转变成编译时错误（compile error），囧洋一副觉得高深不可测的样子，就和很多时候我跟很多人吹程序的逼然后他们露出的神情一样。正好最近在看C++ templates，里面有一小节谈到了动多态(dynamic polymorphism)和静多态（static polymorphism），正好">
@@ -287,7 +287,6 @@
 <p>相比动多态，静多态将类型和行为的绑定从运行期提前到编译期，提高了类型安全性，这也就是<br>我和囧洋说的，尽可能运行时错误提前到编译期错误。试想，我们在使用多态类型集合时，插入<br>了一个错误类型的对象，对于静多态而言，编译器会检查出这个错误，而对于动多态而言，即使<br>在运行期，程序的结果都可能看似正常。</p>
 <p>当然，在实际开发中，我当然愿意看到动多态所带来的优雅和可维护性，静多态牺牲灵活性的<br>tradeoff要在实际中自己体会了。而且对于业务代码而言，不是对抽象程度要求那么高的代码<br>而言，能不用模版这种东西还是尽量不要用，没有泛型和面向对象的C语言依然能够解决很多<br>问题，有时候想想，编程语言这几十年到底是进化还是倒退还是原地踏步真的很难说清楚。</p>
 <p>顺带这里推荐C++ templates 这本书，虽然这本书的成书年代比较早了，但依旧值得一看，<br>第一部分涵盖了C++模版的基础知识，第二部分则深入模版的一些技术细节，第三、四部分<br>则展示了C++模版的一些精彩应用，无论是trait、metaprogram还是静多态，对于开阔视野有好处。<br>建议第二部分可以不看，有些细节确实过于复杂和啰嗦了，拿来装逼不错，实际使用中用处不大。<br>对于C++模版，个人一直以来的看法时，不到万不得已，还是换其它方式吧，除了某些特定的应用<br>领域，模版炫技价值远远大于其实际使用价值。</p>
-<p>当然我扯了这么多，我依然没有办法回答人生三大问题，对象找了么？车买了么？ 房子买了么？<br>所以还是好好搬砖，偶尔扯个淡比较实在。</p>
 </span>
       
     </div>
